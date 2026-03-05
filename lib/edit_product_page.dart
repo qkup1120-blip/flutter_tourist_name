@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'dart:io';
 
 const String baseUrl =
-    "http://localhost/mid_66713078/php_api/";
+    "http://127.0.0.1/mid_66713078/php_api/";
 
 class EditProductPage extends StatefulWidget {
   final dynamic product;
@@ -39,12 +39,12 @@ class _EditProductPageState extends State<EditProductPage> {
 
     provinceController =
         TextEditingController(text: widget.product['province']);
-
+ 
     descController =
         TextEditingController(text: widget.product['description']);
-
+   
     createController =
-        TextEditingController(text: widget.product['create']);
+        TextEditingController(text: widget.product['created_at']);
   }
 
   ////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ class _EditProductPageState extends State<EditProductPage> {
       request.fields['address'] = addressController.text;
       request.fields['province'] = provinceController.text;
       request.fields['description'] = descController.text;
-      request.fields['create_at'] = createController.text;
+      request.fields['created_at'] = createController.text;
       request.fields['old_image'] = widget.product['image'];
 
       ////////////////////////////////////////////////////////
@@ -151,7 +151,7 @@ class _EditProductPageState extends State<EditProductPage> {
         "${baseUrl}images/${widget.product['image']}";
 
     return Scaffold(
-      appBar: AppBar(title: const Text("แก้ไขสินค้า")),
+      appBar: AppBar(title: const Text("แก้ไขข้อมูลสถานที่ท่องเที่ยว")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
 
@@ -201,21 +201,21 @@ class _EditProductPageState extends State<EditProductPage> {
 
               TextField(
                 controller: addressController,
-                decoration: const InputDecoration(labelText: "ที่ตั้ง"),
+                decoration: const InputDecoration(labelText: "address"),
               ),
 
               const SizedBox(height: 10),
 
               TextField(
                 controller: provinceController,
-                decoration: const InputDecoration(labelText: "จังหวัด"),
+                decoration: const InputDecoration(labelText: "province"),
               ),
 
               const SizedBox(height: 20),
 
               TextField(
                 controller: descController,
-                decoration: const InputDecoration(labelText: "รายละเอียด"),
+                decoration: const InputDecoration(labelText: "description"),
               ),
 
               const SizedBox(height: 20),

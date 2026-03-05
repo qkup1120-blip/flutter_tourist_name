@@ -58,7 +58,7 @@ class _AddProductPageState extends State<AddProductPage> {
     }
 
     final url = Uri.parse(
-      "http://localhost/flutter_product_image/php_api/insert_product.php",
+      "http://localhost/mid_66713078/php_api/insert_product.php",
     );
 
     var request = http.MultipartRequest('POST', url);
@@ -71,7 +71,7 @@ class _AddProductPageState extends State<AddProductPage> {
     request.fields['address'] = addressController.text;
     request.fields['province'] = provinceController.text;
     request.fields['description'] = descController.text;
-    request.fields['create_at'] = createController.text;
+    request.fields['created_at'] = createController.text;
 
     ////////////////////////////////////////////////////////////
     // ✅ Upload Image (แยก Web / Mobile)
@@ -111,7 +111,7 @@ class _AddProductPageState extends State<AddProductPage> {
     if (data["success"] == true) {
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("เพิ่มสินค้าเรียบร้อย")),
+        const SnackBar(content: Text("เพิ่มสถานที่เรียบร้อย")),
       );
 
       Navigator.pop(context, true);
@@ -131,7 +131,7 @@ class _AddProductPageState extends State<AddProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("เพิ่มสินค้า")),
+      appBar: AppBar(title: const Text("เพิ่มสถานที่")),
 
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -185,14 +185,14 @@ class _AddProductPageState extends State<AddProductPage> {
               const SizedBox(height: 15),
 
               ////////////////////////////////////////////////////////////
-              // 💰 address
+              // 💰 Price
               ////////////////////////////////////////////////////////////
 
               TextField(
                 controller: addressController,
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  labelText: "ที่ตั้ง",
+                  labelText: "address",
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -200,44 +200,25 @@ class _AddProductPageState extends State<AddProductPage> {
               const SizedBox(height: 15),
 
               ////////////////////////////////////////////////////////////
-              // 📝 province
+              // 📝 Description
               ////////////////////////////////////////////////////////////
 
               TextField(
                 controller: provinceController,
                 maxLines: 3,
                 decoration: const InputDecoration(
-                  labelText: "จังหวัด",
+                  labelText: "province",
                   border: OutlineInputBorder(),
                 ),
               ),
 
               const SizedBox(height: 20),
-
-              ////////////////////////////////////////////////////////////
-              // 📝 Description
-              ////////////////////////////////////////////////////////////
 
               TextField(
                 controller: descController,
                 maxLines: 3,
                 decoration: const InputDecoration(
-                  labelText: "รายละเอียด",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              ////////////////////////////////////////////////////////////
-              // 📝 Description
-              ////////////////////////////////////////////////////////////
-
-              TextField(
-                controller: createController,
-                maxLines: 3,
-                decoration: const InputDecoration(
-                  labelText: "สร้างเมื่อ",
+                  labelText: "description",
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -252,7 +233,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: saveProduct,
-                  child: const Text("บันทึกสินค้า"),
+                  child: const Text("บันทึกข้อมูล"),
                 ),
               ),
             ],

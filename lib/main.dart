@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'add_tourist_page.dart';
-import 'edit_tourist_page.dart';
+import 'add_product_page.dart';
+import 'edit_product_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -12,7 +12,7 @@ void main() => runApp(const MyApp());
 //////////////////////////////////////////////////////////////
 
 const String baseUrl =
-    "http://127.0.0.1/flutter_product_image/php_api/";
+    "http://127.0.0.1/mid_66713078/php_api/";
 
 //////////////////////////////////////////////////////////////
 // ✅ APP ROOT
@@ -42,7 +42,7 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
-  List products = [];
+  List places = [];
   List filteredProducts = [];
 
   final TextEditingController searchController = TextEditingController();
@@ -64,8 +64,8 @@ class _ProductListState extends State<ProductList> {
 
       if (response.statusCode == 200) {
         setState(() {
-          products = json.decode(response.body);
-          filteredProducts = products;
+          places = json.decode(response.body);
+          filteredProducts = places;
         });
       }
     } catch (e) {
@@ -79,7 +79,7 @@ class _ProductListState extends State<ProductList> {
 
   void filterProducts(String query) {
     setState(() {
-      filteredProducts = products.where((product) {
+      filteredProducts = places.where((product) {
         final name = product['name']?.toLowerCase() ?? '';
         return name.contains(query.toLowerCase());
       }).toList();
@@ -102,7 +102,7 @@ class _ProductListState extends State<ProductList> {
         fetchProducts();
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("ลบสินค้าเรียบร้อย")),
+          const SnackBar(content: Text("ลบสถานที่ท่องเที่ยวเรียบร้อย")),
         );
       }
     } catch (e) {
@@ -157,7 +157,7 @@ class _ProductListState extends State<ProductList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Product List')),
+      appBar: AppBar(title: const Text('Places List')),
 
       body: Column(
         children: [
@@ -170,7 +170,7 @@ class _ProductListState extends State<ProductList> {
             child: TextField(
               controller: searchController,
               decoration: const InputDecoration(
-                labelText: 'Search product',
+                labelText: 'Search Places',
                 prefixIcon: Icon(Icons.search),
               ),
               onChanged: filterProducts,
@@ -222,7 +222,7 @@ class _ProductListState extends State<ProductList> {
                           //////////////////////////////////////////////////
 
                           subtitle:
-                              Text(product['description'] ?? ''),
+                              Text(product['province'] ?? ''),
 
                           //////////////////////////////////////////////////
                           // 💰 PRICE
@@ -333,7 +333,7 @@ class ProductDetail extends StatelessWidget {
             //////////////////////////////////////////////////////
 
             Text(
-              product['name'] ?? '',
+              'name: ${product['name']}',
               style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -346,17 +346,25 @@ class ProductDetail extends StatelessWidget {
             // 📝 DESC
             //////////////////////////////////////////////////////
 
+            Text(product['address'] ?? ''),
+
+            const SizedBox(height: 15),
+
+            Text(product['province'] ?? ''),
+
+            const SizedBox(height: 15),
+
             Text(product['description'] ?? ''),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
 
             //////////////////////////////////////////////////////
             // 💰 PRICE
             //////////////////////////////////////////////////////
 
             Text(
-              'ราคา: ฿${product['price']}',
-              style: const TextStyle(fontSize: 18),
+              'สร้างเมื่อ: ${product['created_at']}',
+              style: const TextStyle(fontSize: 15),
             ),
           ],
         ),
