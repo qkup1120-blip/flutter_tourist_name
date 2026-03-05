@@ -20,8 +20,10 @@ class EditProductPage extends StatefulWidget {
 class _EditProductPageState extends State<EditProductPage> {
 
   late TextEditingController nameController;
-  late TextEditingController priceController;
+  late TextEditingController addressController;
+  late TextEditingController provinceController;
   late TextEditingController descController;
+  late TextEditingController createController;
 
   XFile? selectedImage;
 
@@ -32,11 +34,17 @@ class _EditProductPageState extends State<EditProductPage> {
     nameController =
         TextEditingController(text: widget.product['name']);
 
-    priceController =
-        TextEditingController(text: widget.product['price']);
+    addressController =
+        TextEditingController(text: widget.product['address']);
+
+    provinceController =
+        TextEditingController(text: widget.product['province']);
 
     descController =
         TextEditingController(text: widget.product['description']);
+
+    createController =
+        TextEditingController(text: widget.product['create']);
   }
 
   ////////////////////////////////////////////////////////////
@@ -74,8 +82,10 @@ class _EditProductPageState extends State<EditProductPage> {
 
       request.fields['id'] = widget.product['id'].toString();
       request.fields['name'] = nameController.text;
-      request.fields['price'] = priceController.text;
+      request.fields['address'] = addressController.text;
+      request.fields['province'] = provinceController.text;
       request.fields['description'] = descController.text;
+      request.fields['create_at'] = createController.text;
       request.fields['old_image'] = widget.product['image'];
 
       ////////////////////////////////////////////////////////
@@ -184,17 +194,24 @@ class _EditProductPageState extends State<EditProductPage> {
 
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(labelText: "ชื่อสินค้า"),
+                decoration: const InputDecoration(labelText: "ชื่อสถานที่"),
               ),
 
               const SizedBox(height: 10),
 
               TextField(
-                controller: priceController,
-                decoration: const InputDecoration(labelText: "ราคา"),
+                controller: addressController,
+                decoration: const InputDecoration(labelText: "ที่ตั้ง"),
               ),
 
               const SizedBox(height: 10),
+
+              TextField(
+                controller: provinceController,
+                decoration: const InputDecoration(labelText: "จังหวัด"),
+              ),
+
+              const SizedBox(height: 20),
 
               TextField(
                 controller: descController,
